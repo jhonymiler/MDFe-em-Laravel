@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMdvesTable extends Migration
+class CreateMdfesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMdvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mdves', function (Blueprint $table) {
+        Schema::create('mdfes', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('uf_inicio', 2);
@@ -64,6 +64,6 @@ class CreateMdvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mdves');
+        Schema::dropIfExists('mdfes');
     }
 }

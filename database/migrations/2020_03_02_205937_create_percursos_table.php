@@ -18,9 +18,9 @@ class CreatePercursosTable extends Migration
 
             $table->integer('mdfe_id')->unsigned();
             $table->foreign('mdfe_id')->references('id')
-            ->on('mdves')->onDelete('cascade');
+            ->on('mdfes')->onDelete('cascade');
             $table->string('uf', 2);
-            
+
             $table->timestamps();
         });
     }

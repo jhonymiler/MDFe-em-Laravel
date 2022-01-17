@@ -273,7 +273,9 @@
                 @endif
 
                 $(".nav-link").removeClass('active');
-               $("[data-link={{$link_menu}}]").addClass('active');
+                @if(isset($link_menu))
+                    $("[data-link={{$link_menu}}]").addClass('active');
+                @endif
                 @if(isset($sub_link))
                     $("[sub-link={{$sub_link}}]").addClass('active');
                 @endif

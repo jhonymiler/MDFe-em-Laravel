@@ -15,18 +15,19 @@ class Empresas extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('razao_social', 100);
-            $table->string('nome_fantasia', 80);
+            $table->string('razao_social', 200);
+            $table->string('nome_fantasia', 200);
             $table->string('cnpj', 19);
             $table->string('ie', 20);
-            $table->string('logradouro', 150);
+            $table->string('email', 200);
+            $table->string('logradouro', 200);
 
             $table->string('numero', 10);
-            $table->string('bairro', 150);
-            $table->string('fone', 20);
+            $table->string('bairro', 200);
+            $table->string('fone', 100);
             $table->string('cep', 10);
             $table->string('pais', 20);
-            $table->string('municipio', 150);
+            $table->string('municipio', 200);
             $table->integer('codPais');
             $table->integer('codMun');
             $table->char('UF', 2);

@@ -18,7 +18,7 @@ class CreateMunicipioCarregamentosTable extends Migration
 
             $table->integer('mdfe_id')->unsigned();
             $table->foreign('mdfe_id')->references('id')
-            ->on('mdves')->onDelete('cascade');
+            ->on('mdfes')->onDelete('cascade');
 
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')
