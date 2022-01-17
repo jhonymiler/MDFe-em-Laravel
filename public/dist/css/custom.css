@@ -1,0 +1,206 @@
+.modal-header-blue {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+form .error {
+    border-color: red !important;
+}
+
+label.error {
+    border: 1px !important;
+    color: red !important;
+}
+
+#icon-avatar {
+    position: absolute;
+    right: 0;
+    padding: 6px;
+    background-color: rgb(214, 214, 214) !important;
+    bottom: 0;
+}
+
+#icon-avatar i {
+    font-size: 2em;
+}
+
+#imagem-avatar {
+    position: relative;
+    cursor: pointer;
+}
+
+#home-protocolos .info-box-content {
+    font-size: 1.5em !important;
+}
+
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
+
+.img-container img {
+    width: 100%;
+}
+
+
+.atendente {
+    position: absolute;
+    width: 68px;
+    left: -2px;
+    top: -9px;
+}
+
+.botao_tabela_edit_exclui {
+    padding-right: 5px;
+    width: 90px;
+}
+
+#chatbuttom {
+    position: fixed;
+    right: 0.5em;
+    bottom: 2em;
+    font-size: 1.5em;
+    border-radius: 50%;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+#chatContainer {
+    position: fixed;
+    right: 0.1em;
+    bottom: 0em;
+    z-index: 999;
+    display: none;
+}
+
+.direct-chat-msg {
+    max-width: 85%;
+    min-width: 60%;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.msg {
+    display: block;
+    clear: both;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+    padding: .46875rem .75rem;
+    height: calc(2.25rem + 2px);
+}
+
+.tag-input {
+    font-size: 1em;
+    ;
+}
+
+.mailbox-attachment-name {
+    font-size: 12px;
+}
+
+.mailbox-attachment-icon {
+    font-size: 35px !important;
+}
+
+.fa-file-word:before,
+.fa-file-doc:before,
+.fa-file-docx:before {
+    color: dodgerblue;
+}
+
+.fa-file-excel:before,
+.fa-file-xls:before,
+.fa-file-xlsx:before {
+    color: green;
+}
+
+.fa-file-pdf:before {
+    color: firebrick;
+}
+
+.icon-xml:before {
+    color: blueviolet;
+}
+
+.card-comments .card-comment .mailbox-attachments img {
+    width: 100%;
+    height: auto;
+}
+
+.dataTables_info {
+    padding-left: 20px !important;
+}
+
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    top: 33%;
+    left: 5px;
+    height: 1em;
+    width: 1em;
+    margin-top: -9px;
+    display: block;
+    position: absolute;
+    color: white;
+    border: .0em solid white;
+    border-radius: 1em;
+    box-shadow: 0 0 0.2em #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1em;
+    content: "+";
+    background-color: #0275d8;
+}
+
+.botao_tabela_edit_exclui {
+    padding: 5px 0 !important;
+}
+
+.ck-editor__editable_inline {
+    min-height: 200px;
+}
+
+
+.chat-contato .direct-chat-contatos {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    transition-duration: .5s;
+}
+
+.direct-chat-contatos {
+    -webkit-transform: translate(101%, 0);
+    transform: translate(101%, 0);
+    transition-duration: .5s;
+    background-color: #343a40;
+    bottom: 0;
+    color: #fff;
+    height: 400px;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+}
+
+.contacts-list>li:hover {
+    background-color: #434b52 !important;
+}
+
+#lista-usuarios {
+    margin-left: 0px;
+}
+
+.contacts-list-img {
+    margin-right: 10px;
+    ;
+}
