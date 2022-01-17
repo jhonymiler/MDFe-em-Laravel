@@ -149,6 +149,85 @@
                                 </div>
                             </div>
 
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="btn-group float-right">
+                                @if (isset($campos))
+                                    <a href="/empresas" type="button" class="btn btn-success">
+                                        <i class="fas fa-plus"></i>
+                                        Novo
+                                    </a>
+                                @endif
+                            </div>
+                                <!-- /.float-right -->
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-primary card-outline">
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                    <div class="table-responsive mailbox-messages">
+
+                                        <table id="tabela_empresas" class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th><input id="select-all" type="checkbox"></th>
+                                                    <th>Nome Fantasia</th>
+                                                    <th>CNPJ</th>
+                                                    <th>Email</th>
+                                                    <th>Telefone</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+
+                                                        @foreach ( $lista as $empresas)
+
+                                                            <tr empresa="{{$empresas->id}}">
+                                                                <td>
+                                                                    <div class="icheck-primary">
+                                                                        <input name="selAll[]" type="checkbox" class="check-table"
+                                                                            value="{{$empresas->id}}">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="col-md-12">
+                                                                        <a href="/empresas/{{$empresas->id}}"><b>{{$empresas->nome_fantasia}}</b></a><br>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td>
+                                                                    {{$empresas->cnpj}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$empresas->email}}
+
+                                                                </td>
+                                                                <td>{{$empresas->fone}}</td>
+                                                                <td class="botao_tabela_edit_exclui" style="padding: 10px 0 0 0;">
+                                                                    <a href="/empresas/{{$empresas->id}}"
+                                                                        class="btn btn-default">
+                                                                        <i class="fas fa-edit"></i>
+
+                                                                    </a>
+                                                                    <a href="/empresas/excluir/{{$empresas->id}}" nome="{{$empresas->nome_fantasia}}" class="btn btn-default deletar" >
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </a>
+
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                </tbody>
+
+                                        </table>
+
+                                    </div>
+                                    <!-- /.mail-box-messages -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
