@@ -17,7 +17,36 @@ Se trata de um simples sistema para emissão de MDF-e onde é possível:
 
 Feito com o Framework Laravel com fácil manutenção.
 
+## 🚀 Instalando 
 
+Para instalar o <MDF-e Simples>, siga estas etapas:
+
+Windows, Linux e macOS:
+```
+php composer install
+```
+Criando APP_KEY do Laravel
+```
+php artisan key:generate
+```
+
+Criando Banco de dados:
+```
+php artisan db:create
+```
+    
+Criando tabelas:
+```
+php artisan migrate
+```
+
+Criando conteúdo do banco de dados:
+```
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=CidadeSeeder
+```
+
+    
 ## Licença
 
 Licença livre [MIT license](https://opensource.org/licenses/MIT).
