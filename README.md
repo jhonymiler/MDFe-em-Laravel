@@ -45,7 +45,17 @@ Criando conteúdo do banco de dados:
 php artisan db:seed --class=UserSeeder
 php artisan db:seed --class=CidadeSeeder
 ```
-
+## Usuário e Senha
+```
+Usuário: usuario@teste.com.br
+Senha: 123
+``` 
+ 
+## Rodar Servidor
+```
+php artisan serve
+``` 
+## http://127.0.0.1:8000/
     
 ## Licença
 
