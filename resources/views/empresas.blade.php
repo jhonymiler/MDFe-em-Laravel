@@ -46,9 +46,35 @@
                                     </span>
                                 </label>
                             </div>
-                            <div class="form-group">
-                                <label for="senha">Senha do Certificado</label>
-                                <input name="senha" type="password" class="form-control" id="senha" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="senha">Senha do Certificado</label>
+                                        <input name="senha" type="password" class="form-control" id="senha" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="senha">Ambiente</label>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="ambiente">
+                                                  <label class="form-check-label"><b>Produção</b></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="ambiente" checked="checked">
+                                                  <label class="form-check-label"><b>Homologação</b></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </div>
                             </div>
 
                         </div>
