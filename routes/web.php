@@ -37,6 +37,7 @@ Route::prefix('/empresas')->group(function () {
     Route::get('/download', 'EmpresasController@download');
     Route::get('/senha', 'EmpresasController@senha');
     Route::post('/certificado', 'EmpresasController@saveCertificado');
+    Route::post('/getCertificado', 'EmpresasController@getCertificado');
     Route::get('/deleteCertificado', 'EmpresasController@deleteCertificado');
     Route::get('/excluir/{id}', 'EmpresasController@excluir');
     Route::post('/excluir', 'EmpresasController@excluirMultiplos')->name('empresas.excluirMultiplos');

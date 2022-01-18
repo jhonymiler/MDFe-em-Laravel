@@ -319,6 +319,21 @@ class EmpresasController extends Controller
         }
     }
 
+    public function getCertificado(Request $request)
+    {
+        if ($request->hasFile('file') && strlen($request->senha) > 0) {
+            $file = $request->file('file');
+            $temp = file_get_contents($file);
+
+            try {
+                $certificado = Certificate::readPfx($temp, $request->senha);
+                return response()->json($certificado->publicKey, 200);
+            } catch (\Exception $e) {
+                return response()->json($e->getMessage(), 200);
+            }
+        }
+    }
+
 
     /**
      * Trás as informaçoes do certificado digital

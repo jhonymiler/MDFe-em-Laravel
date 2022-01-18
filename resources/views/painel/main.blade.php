@@ -11,6 +11,8 @@
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.css">
+        <link rel="stylesheet" href="/dist/custom-icon/icon-certificado.css">
+
         <!-- overlayScrollbars -->
         <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
         <!-- Theme style -->

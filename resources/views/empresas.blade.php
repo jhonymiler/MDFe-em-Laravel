@@ -7,8 +7,11 @@
     #tabela_empresas_filter {
         display: none;
     }
-</style>
 
+    .icon-certificado{
+        font-size: 3.875rem;
+    }
+</style>
 
 <div class="row" id='cadastro'>
     <div class="col-md-12">
@@ -32,6 +35,45 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
+                            <label for="certificado">Certificado Digital (.pfx)</label>
+                            <div class="input-group">
+
+                                <input type="text" id="arquivo" class="form-control" readonly required>
+                                <label class="input-group-btn" style="margin-left:-5px; ">
+                                    <span class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                        <input name="certificado" id="certificado" type="file" style="display: none;"  required>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha do Certificado</label>
+                                <input name="senha" type="password" class="form-control" id="senha" required>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <h5><b>Dados do Certificado</b></h5>
+                            <div class="info-box bg-info">
+                                <span class="info-box-icon"><i class="icon-certificado"></i></span>
+
+                                <div class="info-box-content">
+                                  <span id="emp-nome" class="info-box-text">---------</span>
+                                  <span id="emp-serial" class="info-box-number">---------</span>
+
+                                  <span id="emp-data" class="info-box-number">
+                                   ------------
+                                  </span>
+                                  <span id="emp-validade" class="info-box-number">
+                                    ------------
+                                  </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -51,7 +93,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="ultimo_numero_mdfe">Último nº da MDF-e</label>
-                                        <input name="ultimo_numero_mdfe" type="text" class="form-control" id="ultimo_numero_mdfe" >
+                                        <input name="ultimo_numero_mdfe" type="text" class="form-control" id="ultimo_numero_mdfe" required >
                                     </div>
                                 </div>
                             </div>
@@ -152,84 +194,7 @@
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="btn-group float-right">
-                                @if (isset($campos))
-                                    <a href="/empresas" type="button" class="btn btn-success">
-                                        <i class="fas fa-plus"></i>
-                                        Novo
-                                    </a>
-                                @endif
-                            </div>
-                                <!-- /.float-right -->
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="card card-primary card-outline">
-                                <!-- /.card-header -->
-                                <div class="card-body p-0">
-                                    <div class="table-responsive mailbox-messages">
 
-                                        <table id="tabela_empresas" class="table table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th><input id="select-all" type="checkbox"></th>
-                                                    <th>Nome Fantasia</th>
-                                                    <th>CNPJ</th>
-                                                    <th>Email</th>
-                                                    <th>Telefone</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-
-                                                        @foreach ( $lista as $empresas)
-
-                                                            <tr empresa="{{$empresas->id}}">
-                                                                <td>
-                                                                    <div class="icheck-primary">
-                                                                        <input name="selAll[]" type="checkbox" class="check-table"
-                                                                            value="{{$empresas->id}}">
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="col-md-12">
-                                                                        <a href="/empresas/{{$empresas->id}}"><b>{{$empresas->nome_fantasia}}</b></a><br>
-                                                                    </div>
-
-                                                                </td>
-                                                                <td>
-                                                                    {{$empresas->cnpj}}
-                                                                </td>
-                                                                <td>
-                                                                    {{$empresas->email}}
-
-                                                                </td>
-                                                                <td>{{$empresas->fone}}</td>
-                                                                <td class="botao_tabela_edit_exclui" style="padding: 10px 0 0 0;">
-                                                                    <a href="/empresas/{{$empresas->id}}"
-                                                                        class="btn btn-default">
-                                                                        <i class="fas fa-edit"></i>
-
-                                                                    </a>
-                                                                    <a href="/empresas/excluir/{{$empresas->id}}" nome="{{$empresas->nome_fantasia}}" class="btn btn-default deletar" >
-                                                                        <i class="fas fa-trash"></i>
-                                                                    </a>
-
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                </tbody>
-
-                                        </table>
-
-                                    </div>
-                                    <!-- /.mail-box-messages -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.card-body -->
 
@@ -469,15 +434,6 @@
 
 
         $('[data-mask]').inputmask();
-       /* {if isset($empresa) && is_array($empresa)}
-            $("#cadastro").show(100);
-        {else}
-            $("#cadastro").hide();
-        {/if}
-
-        {if isset($_GET['novo'])}
-            $("#cadastro").show(100);
-        {/if}*/
 
         $('#novo-cadastro').click(function() {
             $("#cadastro").show(100);
@@ -508,60 +464,59 @@
 				msg("erro", "CNPJ inválido")
 			}else{
 
-				$.ajax({
-
-					url: 'https://www.receitaws.com.br/v1/cnpj/'+cnpj,
-					type: 'GET',
-					crossDomain: true,
-					dataType: 'jsonp',
-					success: function(data)
-					{
-
-						$('#razao_social').val(data.nome);
-						$('#nome_fantasia').val(data.fantasia);
-						$('#logradouro').val(data.logradouro +' '+ data.complemento);
-						$('#numero').val(data.numero);
-						$('#bairro').val(data.bairro);
-						let cep = data.cep.replace(/\D/g, '');
-						$('#cep').val(cep);
-						$('#municipio').val(data.municipio);
-                        $('#email').val(data.email);
-                        $("#fone").val(data.telefone);
-                        $("#UF").val(data.uf);
-
-						getUF(data.uf, (res) => {
-							$('#cUF').val(res);
-							$('#pais').val('BRASIL');
-							$('#codPais').val('1058');
-						});
-
-						findNomeCidade(data.municipio, (res) => {
-							let jsCidade = JSON.parse(res);
-							console.log(jsCidade)
-							if (jsCidade) {
-								console.log(jsCidade.id + " - " + jsCidade.nome)
-								$('#codMun').val(jsCidade.codigo)
-							}
-						});
-
-
-
-
-					},
-					error: function(e) {
-						$('#btn-consulta-cadastro').removeClass('spinner');
-
-						console.error(e);
-						swal("Erro", "Erro na consulta", "error");
-
-					},
-				});
+				getDadosCNPJ(cnpj);
 			}
 
 
         });
 
+        $("#certificado").change(function(){
+            var senha  = $("#senha").val();
+            if(senha != ''){
+                var formData = new FormData();
+                formData.append('file', $('#certificado')[0].files[0]);
+                formData.append('senha',senha);
+                var arquivo  = $('#certificado')[0].files[0].name;
+                $("#arquivo").val(arquivo);
 
+                var token =  $('input[name="_token"]').attr('value');
+                formData.append('_token',token);
+                $.ajax({
+                    url : '/empresas/getCertificado',
+                    type : 'POST',
+                    data : formData,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    success : function(data) {
+                        if(data.commonName){
+
+                            let emp = data.commonName.split(':');
+                            nome = emp[0];
+
+                            let fromdate = new Date(data.validFrom.date);
+                            let todate = new Date(data.validTo.date);
+                            $('#emp-nome').html(nome);
+                            $('#nome_fantasia').val(nome);
+                            $('#emp-serial').html(data.serialNumber);
+                            $('#emp-data').html(fromdate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
+                            $('#emp-validade').html(todate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
+
+                            getDadosCNPJ(emp[1])
+                        }else{
+                            msg('erro','Senha inválida ou Arquivo incorreto!');
+                            $("#senha").addClass('is-invalid');
+                            $('#certificado').val('');
+                        }
+                    }
+                });
+                $("#senha").removeClass('is-invalid');
+
+            }else{
+                msg('erro','Digite a senha do certificado!');
+                $('#certificado').val('');
+                $("#senha").addClass('is-invalid');
+            }
+        });
 
     });
 
@@ -611,6 +566,52 @@
 
 			call(js[uf])
 		}
+
+        function getDadosCNPJ(cnpj){
+            $.ajax({
+
+                url: 'https://www.receitaws.com.br/v1/cnpj/'+cnpj,
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                success: function(data)
+                {
+
+                    $('#cnpj').val(cnpj);
+                    $('#razao_social').val(data.nome);
+                    $('#logradouro').val(data.logradouro +' '+ data.complemento);
+                    $('#numero').val(data.numero);
+                    $('#bairro').val(data.bairro);
+                    let cep = data.cep.replace(/\D/g, '');
+                    $('#cep').val(cep);
+                    $('#municipio').val(data.municipio);
+                    $('#email').val(data.email);
+                    $("#fone").val(data.telefone);
+                    $("#UF").val(data.uf);
+
+                    getUF(data.uf, (res) => {
+                        $('#cUF').val(res);
+                        $('#pais').val('BRASIL');
+                        $('#codPais').val('1058');
+                    });
+
+                    findNomeCidade(data.municipio, (res) => {
+                        let jsCidade = JSON.parse(res);
+                        if (jsCidade) {
+                            $('#codMun').val(jsCidade.codigo)
+                        }
+                    });
+
+
+
+
+                },
+                error: function(e) {
+                    $('#btn-consulta-cadastro').removeClass('spinner');
+                    msg("erro", "Erro na consulta");
+                },
+                });
+        }
 
 
   $('#formcadastro').validate({
