@@ -21,7 +21,6 @@ class Empresas extends Migration
             $table->string('ie', 20);
             $table->string('email', 200);
             $table->string('logradouro', 200);
-
             $table->string('numero', 10);
             $table->string('bairro', 200);
             $table->string('fone', 100);
@@ -31,12 +30,10 @@ class Empresas extends Migration
             $table->integer('codPais');
             $table->integer('codMun');
             $table->char('UF', 2);
-
             $table->string('cUF', 2);
-
             $table->integer('ultimo_numero_mdfe');
-
-            $table->integer('certificado')->default(0);
+            $table->binary('arquivo');
+            $table->string('senha', 15);
 
             $table->timestamps();
         });
