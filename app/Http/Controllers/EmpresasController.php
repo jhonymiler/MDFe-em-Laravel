@@ -25,32 +25,21 @@ class EmpresasController extends Controller
     {
 
         try {
+            $Empresa = '';
             if ($id) {
-                $config = Empresas::find($id);
-                $certificado = Certificado::find($config->id);
-            } else {
-                $config = '';
-                $certificado = '';
+                $Empresa = Empresas::find($id);
             }
-            $infoCertificado = null;
-            if ($certificado != null) {
-                $infoCertificado = $this->getInfoCertificado($certificado);
-            }
-            $cUF = Empresas::estados();
             $soapDesativado = !extension_loaded('soap');
 
             return view('empresas', [
-                'campos' => $config,
-                'infoCertificado' => $infoCertificado,
+                'campos' => $Empresa,
                 'soapDesativado' => $soapDesativado,
                 'estados' => Empresas::estados(),
-                'certificado' => $certificado,
                 'lista' => Empresas::all(),
                 'link_menu' => 'empresas'
             ]);
         } catch (\Exception $e) {
             echo $e->getMessage();
-            echo "<br><a href='/empresas/deleteCertificado'>Remover Certificado</a>";
         }
     }
 
@@ -67,8 +56,9 @@ class EmpresasController extends Controller
         $this->_validate($request);
         try {
 
-            if ($request->hasFile('file') && strlen($request->senha) > 0) {
-                $file = $request->file('file');
+            $temp = '';
+            if ($request->hasFile('certificado') && strlen($request->senha) > 0) {
+                $file = $request->file('certificado');
                 $temp = file_get_contents($file);
             }
             if ($request->id == 0) {
@@ -90,8 +80,8 @@ class EmpresasController extends Controller
                     'fone' => $this->sanitizeString($request->fone),
                     'cUF' => Empresas::getCodUF($request->UF),
                     'senha' => $request->senha,
-                    'certificado' => $request->ambiente,
-                    'ambiente' => $temp,
+                    'ambiente' => $request->ambiente,
+                    'certificado' => $temp,
                     'ultimo_numero_mdfe' => $request->ultimo_numero_mdfe
 
                 ]);
@@ -119,6 +109,7 @@ class EmpresasController extends Controller
                 $config->fone = $request->fone;
                 $config->senha = $request->senha;
                 $config->certificado = $temp;
+                $config->ambiente = $request->ambiente;
 
                 $config->cUF = Empresas::getCodUF($request->UF);
 
@@ -212,7 +203,8 @@ class EmpresasController extends Controller
             'cep' => 'required',
             'municipio' => 'required',
             'pais' => 'required',
-
+            'certificado' => 'required',
+            'senha' => 'required',
             'codPais' => 'required|min:4',
             'codMun' => 'required|min:7',
             'UF' => 'required|max:2|min:2',
@@ -238,6 +230,8 @@ class EmpresasController extends Controller
             'bairro.required' => 'O campo Bairro é obrigatório.',
             'bairro.max' => '50 caracteres maximos permitidos.',
             'fone.required' => 'O campo Telefone é obrigatório.',
+            'certificado.required' => 'Informe o arquivo do Certificado Digital',
+            'senha.required' => 'Informe a senha do Certificado Digital.',
 
             'uf.required' => 'O campo UF é obrigatório.',
             'uf.max' => 'UF inválida.',
@@ -256,77 +250,26 @@ class EmpresasController extends Controller
         $this->validate($request, $rules, $messages);
     }
 
-    /**
-     * Upload do arquivo do certificado digital
-     *
-     * @return void
-     */
-    public function certificado()
-    {
-        return view('empresas/upload', [
-            'titulo', 'Upload de Certificado',
-            'link_menu' => 'empresas'
-        ]);
-    }
 
     /**
      * Download do arquivo de certificado digital
      *
      * @return void
      */
-    public function download()
+    public function download($id)
     {
-        $certificado = Certificado::first();
+        $empresas = Empresas::find($id);
         // echo "Senha: " . $certificado->senha;
         try {
-            file_put_contents(public_path('cd.bin'), $certificado->arquivo);
+            file_put_contents(public_path('cd.bin'), $empresas->certificado);
             return response()->download(public_path('cd.bin'));
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
 
-    /**
-     * Senha do certificado digital
-     *
-     * @return void
-     */
-    public function senha()
-    {
-        $certificado = Certificado::first();
-        echo "Senha: " . $certificado->senha;
-    }
 
-    /**
-     * Salvar certificado digital no banco de dados
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return void
-     */
-    public function saveCertificado(Request $request)
-    {
 
-        if ($request->hasFile('file') && strlen($request->senha) > 0) {
-            $file = $request->file('file');
-            $temp = file_get_contents($file);
-
-            $res = Certificado::create([
-                'senha' => $request->senha,
-                'arquivo' => $temp
-            ]);
-
-            if ($res) {
-                session()->flash('color', 'green');
-                session()->flash("message", "Upload de certificado realizado!");
-                return redirect('/empresas');
-            }
-        } else {
-            session()->flash('color', 'red');
-            session()->flash("message", "Envie o arquivo e senha por favor!");
-            return redirect('/empresas/certificado');
-        }
-    }
 
     public function getCertificado(Request $request)
     {
@@ -369,18 +312,7 @@ class EmpresasController extends Controller
         ];
     }
 
-    /**
-     * Exclui o certificado digital
-     *
-     * @return void
-     */
-    public function deleteCertificado()
-    {
-        Certificado::truncate();
-        session()->flash('color', 'green');
-        session()->flash("message", "Certificado Removido!");
-        return redirect('empresas');
-    }
+
 
     function sanitizeString($str)
     {

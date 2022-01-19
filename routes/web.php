@@ -35,7 +35,6 @@ Route::prefix('/empresas')->group(function () {
     Route::post('/save', 'EmpresasController@save')->name('empresas.save');
     Route::get('/certificado', 'EmpresasController@certificado');
     Route::get('/download', 'EmpresasController@download');
-    Route::get('/senha', 'EmpresasController@senha');
     Route::post('/certificado', 'EmpresasController@saveCertificado');
     Route::post('/getCertificado', 'EmpresasController@getCertificado');
     Route::get('/deleteCertificado', 'EmpresasController@deleteCertificado');
@@ -48,6 +47,12 @@ Route::group(['prefix' => 'cidades'], function () {
     Route::get('/find/{id}', 'CidadeController@find');
     Route::get('/findNome/{nome}', 'CidadeController@findNome');
 });
+
+Route::group(['prefix' => 'veiculos'], function () {
+    Route::get('/{id?}', 'VeiculoController@index')->name('veiculos');
+    Route::get('/save/{id}', 'VeiculoController@find')->name('veiculos.save');
+});
+
 
 Route::group(['prefix' => 'mdfe'], function () {
     Route::get('/', 'MdfeController@index');

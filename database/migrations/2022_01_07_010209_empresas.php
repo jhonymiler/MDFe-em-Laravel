@@ -34,7 +34,7 @@ class Empresas extends Migration
             $table->integer('ultimo_numero_mdfe');
             $table->binary('certificado');
             $table->string('senha', 15);
-            $table->boolean('ambiente');
+            $table->integer('ambiente');
 
             $table->timestamps();
         });
