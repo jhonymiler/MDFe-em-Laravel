@@ -13,7 +13,7 @@ class Empresas extends Model
     protected $fillable = [
         'razao_social', 'nome_fantasia', 'cnpj', 'ie', 'logradouro',
         'numero', 'bairro', 'municipio', 'codMun', 'pais', 'codPais',
-        'fone', 'cep', 'UF', 'cUF', 'email', 'ultimo_numero_mdfe', 'certificado_a3'
+        'fone', 'cep', 'UF', 'cUF', 'email', 'ultimo_numero_mdfe', 'senha', 'certificado'
     ];
 
 

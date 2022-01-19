@@ -32,8 +32,9 @@ class Empresas extends Migration
             $table->char('UF', 2);
             $table->string('cUF', 2);
             $table->integer('ultimo_numero_mdfe');
-            $table->binary('arquivo');
+            $table->binary('certificado');
             $table->string('senha', 15);
+            $table->boolean('ambiente');
 
             $table->timestamps();
         });

@@ -66,6 +66,11 @@ class EmpresasController extends Controller
     {
         $this->_validate($request);
         try {
+
+            if ($request->hasFile('file') && strlen($request->senha) > 0) {
+                $file = $request->file('file');
+                $temp = file_get_contents($file);
+            }
             if ($request->id == 0) {
                 $config = Empresas::create([
                     'razao_social' => strtoupper($this->sanitizeString($request->razao_social)),
@@ -84,7 +89,9 @@ class EmpresasController extends Controller
                     'pais' => strtoupper($request->pais),
                     'fone' => $this->sanitizeString($request->fone),
                     'cUF' => Empresas::getCodUF($request->UF),
-
+                    'senha' => $request->senha,
+                    'certificado' => $request->ambiente,
+                    'ambiente' => $temp,
                     'ultimo_numero_mdfe' => $request->ultimo_numero_mdfe
 
                 ]);
@@ -110,6 +117,8 @@ class EmpresasController extends Controller
                 $config->UF = $request->UF;
                 $config->pais = strtoupper($request->pais);
                 $config->fone = $request->fone;
+                $config->senha = $request->senha;
+                $config->certificado = $temp;
 
                 $config->cUF = Empresas::getCodUF($request->UF);
 
