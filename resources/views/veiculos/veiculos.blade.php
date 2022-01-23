@@ -1,10 +1,10 @@
 
 
         @extends('painel.main')
-        @section('titulo','Cadastro de Empresas')
+        @section('titulo','Cadastro de Veículos')
         @section('content')
 <style>
-    #tabela_empresas_filter {
+    #tabela_veiculos_filter {
         display: none;
     }
 
@@ -18,7 +18,7 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Cadastro de Empresas</h3>
+                <h3 class="card-title">@yield('titulo')</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" id="fecha">
                         <i class="fas fa-times"></i>
@@ -29,160 +29,30 @@
 
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="post" action="{{route('empresas.save')}}" id="formcadastro" class="needs-validation" enctype='multipart/form-data'>
+            <form method="post" action="{{route('veiculos.save')}}" id="formcadastro" class="needs-validation" enctype='multipart/form-data'>
                 @csrf
-                <input type="hidden" name="id" value="{{{ isset($config->id) ? $config->id : 0 }}}">
+                <input type="hidden" name="id" value="{{{ isset($Veiculo->id) ? $Veiculo->id : 0 }}}">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="senha">Senha do Certificado</label>
-                                        <input name="senha" type="password" class="form-control" id="senha" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="senha">Ambiente</label>
-                                    <div class="row">
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="ambiente" value="1">
-                                                  <label class="form-check-label"><b>Produção</b></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="ambiente" checked="checked" value="2">
-                                                  <label class="form-check-label"><b>Homologação</b></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     </div>
-                                </div>
-                            </div>
-                                <label for="certificado">Certificado Digital (.pfx)</label>
-                                <div class="input-group">
-
-                                    <input type="text" id="arquivo" class="form-control" readonly required>
-                                    <label class="input-group-btn" style="margin-left:-5px; ">
-                                        <span class="btn btn-primary">
-                                            <i class="fas fa-search"></i>
-                                            <input name="certificado" id="certificado" type="file" style="display: none;"  required>
-                                        </span>
-                                    </label>
-                                </div>
-
-
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <h5><b>Dados do Certificado</b></h5>
-                            <div class="info-box bg-info">
-                                <span class="info-box-icon"><i class="icon-certificado"></i></span>
-
-                                <div class="info-box-content">
-                                  <span id="emp-nome" class="info-box-text">---------</span>
-                                  <span id="emp-serial" class="info-box-number">---------</span>
-
-                                  <span id="emp-data" class="info-box-number">
-                                   ------------
-                                  </span>
-                                  <span id="emp-validade" class="info-box-number">
-                                    ------------
-                                  </span>
-                                </div>
-                                <!-- /.info-box-content -->
-                              </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-6">
 
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="cnpj">CNPJ</label>
-                                        <input name="cnpj" type="text" class="form-control" id="cnpj"
-                                            data-inputmask='"mask": "99.999.999/9999-99"' data-mask required>
-
+                                        <label for="placa">Placa</label>
+                                        <input name="placa" type="text" class="form-control" id="placa" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="ie">I.E</label>
-                                        <input name="ie" type="text" class="form-control" id="ie" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="ultimo_numero_mdfe">Último nº da MDF-e</label>
-                                        <input name="ultimo_numero_mdfe" type="text" class="form-control" id="ultimo_numero_mdfe" required >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="razao_social">Razão Social</label>
-                                <input name="razao_social" type="text" class="form-control" id="razao_social" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="nome_fantasia">Nome Fantasia</label>
-                                <input name="nome_fantasia" type="text" class="form-control" id="nome_fantasia" required>
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input name="email" type="email" class="form-control" id="email"
-                                            placeholder="email@site.com.br" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="fone">Telefone</label>
-                                        <input name="fone" type="text" class="form-control" id="fone"
-
-                                            placeholder="(99) 9999-9999" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="cep">CEP</label>
-                                        <input name="cep" type="text" class="form-control" id="cep"
-                                            data-inputmask='"mask": "99999-999"' data-mask data-maskplaceholder="99999-999"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="municipio">Cidade</label>
-                                        <input type="hidden" name="codMun" id="codMun"/>
-                                        <input type="hidden" name="codPais" id="codPais"/>
-                                        <input type="hidden" name="pais" id="pais"/>
-                                        <input name="municipio" type="text" class="form-control" id="municipio"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="uf">UF</label>
-                                        <select class="form-control" id="UF" required name="UF">
+                                        <select class="form-control" id="uf" required name="uf">
                                             <option value="null">--</option>
                                             @foreach($estados as $key => $u)
                                             <option
-                                            @if(isset($config))
-                                            @if($key == $config->cUF)
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->uf)
                                             selected
                                             @endif
 
@@ -191,29 +61,179 @@
                                             value="{{$u}}">{{$u}}</option>
                                             @endforeach
                                         </select>
-                                        <input name="cUF" type="hidden" class="form-control" id="cUF" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cor">Cor</label>
+                                        <input name="cor" type="text" class="form-control" id="cor" required >
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="bairro">Bairro</label>
-                                        <input name="bairro" type="text" class="form-control" id="bairro"
-                                            required>
+                                        <label for="marca">Marca</label>
+                                        <input name="marca" type="text" class="form-control" id="marca" required>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="modelo">Modelo</label>
+                                        <input name="modelo" type="text" class="form-control" id="modelo" required>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="rntrc">RNTRC</label>
+                                        <input name="rntrc" type="text" class="form-control" id="rntrc" required>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="logradouro">Rua</label>
-                                        <input name="logradouro" type="text" class="form-control" id="logradouro" required>
+                                        <label for="tipo">Tipo</label>
+                                        <select class="form-control" id="tipo" required name="tipo">
+
+                                            <option value="null">--</option>
+                                            @foreach($tipos as $key => $u)
+                                            <option
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->tipo)
+                                            selected
+                                            @endif
+
+
+                                            @endif
+                                            value="{{$key}}">{{$u}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="numero">Nº</label>
-                                        <input name="numero" type="text" class="form-control" id="numero" required>
+                                        <label for="tipo_rodado">Tipo Rodado</label>
+                                        <select class="form-control" id="tipo_rodado" required name="tipo_rodado">
+                                            <option value="null">--</option>
+                                            @foreach($tiposRodado as $key => $u)
+                                            <option
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->tipo_rodado)
+                                            selected
+                                            @endif
+
+
+                                            @endif
+                                            value="{{$key}}">{{$u}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="tipo_carroceria">Tipo Carroceria</label>
+                                        <select class="form-control" id="tipo_carroceria" name="tipo_carroceria" required>
+                                            <option value="null">--</option>
+                                            @foreach($tiposCarroceria as $key => $u)
+                                            <option
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->tipo_carroceria)
+                                            selected
+                                            @endif
+
+
+                                            @endif
+                                            value="{{$key}}">{{$u}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="tara">Tara</label>
+                                        <input name="tara" type="text" class="form-control" id="tara" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="capacidade">Capacidade</label>
+                                        <input name="capacidade" type="text" class="form-control" id="capacidade" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="proprietario_nome">Nome do Proprietário</label>
+                                        <input name="proprietario_nome" type="text" class="form-control" id="proprietario_nome" required>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="proprietario_documento">CPF/CNPJ do Proprietário</label>
+                                        <input name="proprietario_documento" type="text" class="form-control" id="proprietario_documento"
+                                            required>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="proprietario_ie">IE/RG do Proprietário</label>
+                                        <input name="proprietario_ie" type="text" class="form-control" id="proprietario_ie"
+                                            required>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="proprietario_uf">UF - Proprietário</label>
+                                        <select class="form-control" id="proprietario_uf" required name="proprietario_uf">
+                                            <option value="null">--</option>
+                                            @foreach($estados as $key => $u)
+                                            <option
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->proprietario_uf)
+                                            selected
+                                            @endif
+
+
+                                            @endif
+                                            value="{{$u}}">{{$u}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="proprietario_tp">Tipo do Proprietário</label>
+                                        <select class="form-control" id="proprietario_tp" required name="proprietario_tp">
+                                            <option value="null">--</option>
+                                            @foreach($tiposProprietario as $key => $u)
+                                            <option
+                                            @if(isset($Veiculos))
+                                            @if($key == $Veiculos->proprietario_tp)
+                                            selected
+                                            @endif
+
+
+                                            @endif
+                                            value="{{$key}}">{{$u}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +254,7 @@
     </div>
 </div>
 
-@if(isset($lista))
+@if(isset($lista) && count($lista)>0)
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -248,7 +268,7 @@
                 <!-- Check all button -->
                 <div class="btn-group">
                     @if (isset($campos))
-                        <a href="/empresas" type="button" class="btn btn-success">
+                        <a href="/veiculos" type="button" class="btn btn-success">
                             <i class="fas fa-plus"></i>
                             Novo
                         </a>
@@ -266,7 +286,6 @@
     </div>
 </div>
 <!-- /.card-tools -->
-
 <div class="row">
     <div class="col-md-12">
 
@@ -274,52 +293,52 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <div class="table-responsive mailbox-messages">
-                    <form method="post" action="{{route('empresas.excluirMultiplos')}}" id="deleteAll">
+                    <form method="post" action="{{route('veiculos.excluirMultiplos')}}" id="deleteAll">
                         @csrf
 
-                    <table id="tabela_empresas" class="table table-hover table-striped">
+                    <table id="tabela_veiculos" class="table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th><input id="select-all" type="checkbox"></th>
-                                <th>Nome Fantasia</th>
-                                <th>CNPJ</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
+                                <th>Nome</th>
+                                <th>Placa</th>
+                                <th>Tipo</th>
+                                <th>Carroceria</th>
                                 <th></th>
                             </tr>
                         </thead>
                             <tbody>
 
-                                    @foreach ( $lista as $empresas)
+                                    @foreach ( $lista as $veiculos)
 
-                                        <tr empresa="{{$empresas->id}}">
+                                        <tr empresa="{{$veiculos->id}}">
                                             <td>
                                                 <div class="icheck-primary">
                                                     <input name="selAll[]" type="checkbox" class="check-table"
-                                                        value="{{$empresas->id}}">
+                                                        value="{{$veiculos->id}}">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="col-md-12">
-                                                    <a href="/empresas/{{$empresas->id}}"><b>{{$empresas->nome_fantasia}}</b></a><br>
+                                                    <a href="/veiculos/{{$veiculos->id}}"><b>{{$veiculos->proprietario_nome}}</b></a><br>
                                                 </div>
 
                                             </td>
                                             <td>
-                                                {{$empresas->cnpj}}
+                                                {{$veiculos->placa}}
                                             </td>
                                             <td>
-                                                {{$empresas->email}}
+                                                {{$veiculos->getTipo($veiculos->tipo)}} - {{$veiculos->getTipoRodado($veiculos->tipo_rodado)}}
 
                                             </td>
-                                            <td>{{$empresas->fone}}</td>
+                                            <td>{{$veiculos->getTipoCarrocceria($veiculos->tipo_carroceria)}}</td>
                                             <td class="botao_tabela_edit_exclui" style="padding: 10px 0 0 0;">
-                                                <a href="/empresas/{{$empresas->id}}"
+                                                <a href="/veiculos/{{$veiculos->id}}"
                                                     class="btn btn-default">
                                                     <i class="fas fa-edit"></i>
 
                                                 </a>
-                                                <a href="/empresas/excluir/{{$empresas->id}}" nome="{{$empresas->nome_fantasia}}" class="btn btn-default deletar" >
+                                                <a href="/veiculos/excluir/{{$veiculos->id}}" nome="{{$veiculos->proprietario_nome}}" class="btn btn-default deletar" >
                                                     <i class="fas fa-trash"></i>
                                                 </a>
 
@@ -409,7 +428,7 @@
 
 
 
-        var table = $("#tabela_empresas").DataTable({
+        var table = $("#tabela_veiculos").DataTable({
             "lengthMenu": [
                 [5, 25, 50, -1],
                 [5, 25, 50, "Tudo"]
@@ -461,13 +480,12 @@
 
 
         $('[data-mask]').inputmask();
+        $("input[id*='proprietario_documento']").inputmask({
+            mask: ['999.999.999-99', '99.999.999/9999-99'],
+            keepStatic: true
+        });
 
-        $('#novo-cadastro').click(function() {
-            $("#cadastro").show(100);
-        });
-        $('#fecha').click(function() {
-            $("#cadastro").hide(100);
-        });
+
 
         @if ($errors->any())
              @foreach ($errors->all() as $error)
@@ -475,89 +493,13 @@
             @endforeach
         @endif
 
-        $("#UF").change(function(){
-            getUF($(this).val(), (res) => {
-                $('#cUF').val(res);
-            });
-        });
-
-        //Quando o campo cep perde o foco.
-        $("#cnpj").blur(function() {
-
-            //Nova variável "cnpj" somente com dígitos.
-            var cnpj = $(this).val().replace(/\D/g, '');
-
-            if(cnpj.length != 14){
-				msg("erro", "CNPJ inválido")
-			}else{
-
-				getDadosCNPJ(cnpj);
-			}
 
 
-        });
-
-        $("#certificado").change(function(){
-            var senha  = $("#senha").val();
-            if(senha != ''){
-                var formData = new FormData();
-                formData.append('file', $('#certificado')[0].files[0]);
-                formData.append('senha',senha);
-                var arquivo  = $('#certificado')[0].files[0].name;
-                $("#arquivo").val(arquivo);
-
-                var token =  $('input[name="_token"]').attr('value');
-                formData.append('_token',token);
-                $.ajax({
-                    url : '/empresas/getCertificado',
-                    type : 'POST',
-                    data : formData,
-                    processData: false,  // tell jQuery not to process the data
-                    contentType: false,  // tell jQuery not to set contentType
-                    success : function(data) {
-                        if(data.commonName){
-
-                            let emp = data.commonName.split(':');
-                            nome = emp[0];
-
-                            let fromdate = new Date(data.validFrom.date);
-                            let todate = new Date(data.validTo.date);
-                            $('#emp-nome').html(nome);
-                            $('#nome_fantasia').val(nome);
-                            $('#emp-serial').html(data.serialNumber);
-                            $('#emp-data').html(fromdate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
-                            $('#emp-validade').html(todate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
-
-                            getDadosCNPJ(emp[1])
-                        }else{
-                            msg('erro','Senha inválida ou Arquivo incorreto!');
-                            $("#senha").addClass('is-invalid');
-                            $('#certificado').val('');
-                        }
-                    }
-                });
-                $("#senha").removeClass('is-invalid');
-
-            }else{
-                msg('erro','Digite a senha do certificado!');
-                $('#certificado').val('');
-                $("#senha").addClass('is-invalid');
-            }
-        });
 
     });
 
 
 
-		function findNomeCidade(nomeCidade, call) {
-			$.get('/cidades/findNome/' + nomeCidade)
-			.done((success) => {
-				call(success)
-			})
-			.fail((err) => {
-				call(err)
-			})
-		}
 
 		function getUF(uf, call){
 
@@ -594,51 +536,6 @@
 			call(js[uf])
 		}
 
-        function getDadosCNPJ(cnpj){
-            $.ajax({
-
-                url: 'https://www.receitaws.com.br/v1/cnpj/'+cnpj,
-                type: 'GET',
-                crossDomain: true,
-                dataType: 'jsonp',
-                success: function(data)
-                {
-
-                    $('#cnpj').val(cnpj);
-                    $('#razao_social').val(data.nome);
-                    $('#logradouro').val(data.logradouro +' '+ data.complemento);
-                    $('#numero').val(data.numero);
-                    $('#bairro').val(data.bairro);
-                    let cep = data.cep.replace(/\D/g, '');
-                    $('#cep').val(cep);
-                    $('#municipio').val(data.municipio);
-                    $('#email').val(data.email);
-                    $("#fone").val(data.telefone);
-                    $("#UF").val(data.uf);
-
-                    getUF(data.uf, (res) => {
-                        $('#cUF').val(res);
-                        $('#pais').val('BRASIL');
-                        $('#codPais').val('1058');
-                    });
-
-                    findNomeCidade(data.municipio, (res) => {
-                        let jsCidade = JSON.parse(res);
-                        if (jsCidade) {
-                            $('#codMun').val(jsCidade.codigo)
-                        }
-                    });
-
-
-
-
-                },
-                error: function(e) {
-                    $('#btn-consulta-cadastro').removeClass('spinner');
-                    msg("erro", "Erro na consulta");
-                },
-                });
-        }
 
 
   $('#formcadastro').validate({

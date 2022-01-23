@@ -50,7 +50,9 @@ Route::group(['prefix' => 'cidades'], function () {
 
 Route::group(['prefix' => 'veiculos'], function () {
     Route::get('/{id?}', 'VeiculoController@index')->name('veiculos');
-    Route::get('/save/{id}', 'VeiculoController@find')->name('veiculos.save');
+    Route::post('/save', 'VeiculoController@save')->name('veiculos.save');
+    Route::get('/excluir/{id}', 'VeiculoController@excluir');
+    Route::post('/excluir', 'VeiculoController@excluirMultiplos')->name('veiculos.excluirMultiplos');
 });
 
 

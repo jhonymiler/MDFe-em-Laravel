@@ -106,11 +106,11 @@
 
 			<div class="row">
 				<div class="input-field col s3">
-					<select name="tipo_carroceira">
+					<select name="tipo_carroceria">
 						@foreach($tiposCarroceria as $key => $t)
 						<option
 						@isset($veiculo)
-						@if($key == $veiculo->tipo_carroceira)
+						@if($key == $veiculo->tipo_carroceria)
 						selected
 						@endif
 						@endisset

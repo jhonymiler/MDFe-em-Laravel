@@ -24,7 +24,7 @@ class CreateVeiculosTable extends Migration
 
 
             $table->string('tipo', 2);
-            $table->string('tipo_carroceira', 2);
+            $table->string('tipo_carroceria', 2);
             $table->string('tipo_rodado', 2);
 
             $table->string('tara', 10);

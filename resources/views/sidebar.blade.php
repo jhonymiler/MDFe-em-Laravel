@@ -78,7 +78,7 @@
 
 
                 <li class="nav-item">
-                    <a href="/departamentos" data-link="departamentos" class="nav-link">
+                    <a href="/veiculos" data-link="departamentos" class="nav-link">
                         <i class="nav-icon fas fa-truck-moving"></i>
                         <p>
                             Veículos
@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/usuarios" data-link="usuarios" class="nav-link">
+                    <a href="/motoristas" data-link="usuarios" class="nav-link">
                         <i class="nav-icon fas fa-id-card"></i>
                         <p>
                             Motoristas

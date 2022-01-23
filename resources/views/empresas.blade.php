@@ -31,7 +31,7 @@
             <!-- form start -->
             <form method="post" action="{{route('empresas.save')}}" id="formcadastro" class="needs-validation" enctype='multipart/form-data'>
                 @csrf
-                <input type="hidden" name="id" value="{{{ isset($config->id) ? $config->id : 0 }}}">
+                <input type="hidden" name="id" value="{{{ isset($Empresa->id) ? $Empresa->id : 0 }}}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
