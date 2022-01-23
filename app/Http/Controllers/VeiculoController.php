@@ -27,7 +27,7 @@ class VeiculoController extends Controller
             $tiposProprietario = Veiculo::tiposProprietario();
             $ufs = Veiculo::cUF();
 
-            return view('veiculos/veiculos', [
+            return view('veiculos', [
                 'campos' => $Veiculo,
                 'tipos' => $tipos,
                 'tiposRodado' => $tiposRodado,
