@@ -53,6 +53,7 @@ class EmpresasController extends Controller
      */
     public function save(Request $request)
     {
+
         $this->_validate($request);
         try {
 

@@ -19,9 +19,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
+// Route::get('/', function () {
+//     $lista = array();
+//     return view('home', [
+//         'lista' => $lista
+//     ]);
+// })->middleware('auth');
+
+Route::get('/', 'MdfeController@index');
 
 
 Route::prefix('/login')->group(function () {
@@ -42,12 +47,6 @@ Route::prefix('/empresas')->group(function () {
     Route::post('/excluir', 'EmpresasController@excluirMultiplos')->name('empresas.excluirMultiplos');
 });
 
-Route::group(['prefix' => 'cidades'], function () {
-    Route::get('/all', 'CidadeController@all');
-    Route::get('/find/{id}', 'CidadeController@find');
-    Route::get('/findNome/{nome}', 'CidadeController@findNome');
-});
-
 Route::group(['prefix' => 'veiculos'], function () {
     Route::get('/{id?}', 'VeiculoController@index')->name('veiculos');
     Route::post('/save', 'VeiculoController@save')->name('veiculos.save');
@@ -56,9 +55,15 @@ Route::group(['prefix' => 'veiculos'], function () {
 });
 
 
+Route::group(['prefix' => 'cidades'], function () {
+    Route::get('/all', 'CidadeController@all');
+    Route::get('/find/{id}', 'CidadeController@find');
+    Route::get('/findNome/{nome}', 'CidadeController@findNome');
+});
+
 Route::group(['prefix' => 'mdfe'], function () {
     Route::get('/', 'MdfeController@index');
-    Route::get('/nova', 'MdfeController@nova');
+    Route::get('/nova', 'MdfeController@nova')->name('mdfe.nova');
     Route::get('/lista', 'MdfeController@lista');
     Route::get('/detalhar/{id}', 'MdfeController@detalhar');
     Route::get('/delete/{id}', 'MdfeController@delete');

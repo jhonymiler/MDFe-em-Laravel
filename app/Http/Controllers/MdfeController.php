@@ -18,7 +18,7 @@ use App\Models\LacreTransporte;
 use App\Models\LacreUnidadeCarga;
 
 use App\Models\Veiculo;
-use App\Models\ConfigNota;
+use App\Models\Empresas;
 use Illuminate\Support\Facades\Auth;
 
 class MdfeController extends Controller
@@ -26,26 +26,18 @@ class MdfeController extends Controller
 
     public function __construct()
     {
-
-        $this->middleware(function ($request, $next) {
-            if (!Auth::check()) {
-                return redirect("/login");
-            } else {
-                return $next($request);
-            }
-        });
+        $this->middleware('auth');
     }
 
     public function index()
     {
-        $mdfes = Mdfe::where('estado', 'NOVO')
-            ->paginate(10);
+        $mdfes = Mdfe::all();
 
         $menos30 = $this->menos30Dias();
         $date = date('d/m/Y');
 
-        return view("mdfe/list")
-            ->with('mdfes', $mdfes)
+        return view("home")
+            ->with('lista', $mdfes)
             ->with('mdfeEnvioJs', true)
             ->with('links', true)
             ->with('dataInicial', $menos30)
@@ -84,27 +76,17 @@ class MdfeController extends Controller
     {
         $lastMdfe = Mdfe::lastMdfe();
         $veiculos = Veiculo::all();
-        $config = ConfigNota::first();
+        $config = Empresas::first();
         $ufs = Mdfe::cUF();
         $tiposUnidadeTransporte = Mdfe::tiposUnidadeTransporte();
 
-
-        if ($config == null || count($veiculos) == 0) {
-
-            return view("mdfe/erro")
-                ->with('veiculos', $veiculos)
-                ->with('config', $config)
-                ->with('clienteCadastrado', true)
-                ->with('title', "Validação para Emitir");
-        } else {
-            return view("mdfe/register")
-                ->with('mdfeJs', true)
-                ->with('veiculos', $veiculos)
-                ->with('ufs', $ufs)
-                ->with('tiposUnidadeTransporte', $tiposUnidadeTransporte)
-                ->with('lastMdfe', $lastMdfe)
-                ->with('title', "Nova MDF-e");
-        }
+        return view("mdfe/register")
+            ->with('mdfeJs', true)
+            ->with('veiculos', $veiculos)
+            ->with('ufs', $ufs)
+            ->with('tiposUnidadeTransporte', $tiposUnidadeTransporte)
+            ->with('lastMdfe', $lastMdfe)
+            ->with('title', "Nova MDF-e");
     }
 
     private function menos30Dias()
@@ -281,7 +263,7 @@ class MdfeController extends Controller
 
         $lastMdfe = Mdfe::lastMdfe();
         $veiculos = Veiculo::all();
-        $config = ConfigNota::first();
+        $config = Empresas::first();
         $ufs = Mdfe::cUF();
         $tiposUnidadeTransporte = Mdfe::tiposUnidadeTransporte();
 
@@ -348,10 +330,10 @@ class MdfeController extends Controller
         $temp = [];
         foreach ($mdfe->valesPedagio as $v) {
             $arr = [
-                'cnpj_fornecedor' => $c->cnpj_fornecedor,
-                'cnpj_fornecedor_pagador' => $c->cnpj_fornecedor_pagador,
-                'numero_compra' => $c->numero_compra,
-                'valor' => $c->valor
+                'cnpj_fornecedor' => $v->cnpj_fornecedor,
+                'cnpj_fornecedor_pagador' => $v->cnpj_fornecedor_pagador,
+                'numero_compra' => $v->numero_compra,
+                'valor' => $v->valor
             ];
             array_push($temp, $arr);
         }
