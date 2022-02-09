@@ -26,13 +26,23 @@ class EmpresasController extends Controller
 
         try {
             $Empresa = '';
+            $certificado = '';
+            $emp = '';
             if ($id) {
                 $Empresa = Empresas::find($id);
+                $emp = $Empresa->toArray();
+                $certificado = $emp['certificado'];
+                unset($emp['certificado']);
+                $certificado = Certificate::readPfx($certificado, $emp['senha']);
+                $certificado = json_encode($certificado->publicKey, JSON_FORCE_OBJECT);
+                $emp = json_encode($emp, JSON_UNESCAPED_UNICODE);
             }
             $soapDesativado = !extension_loaded('soap');
 
+
             return view('empresas', [
-                'campos' => $Empresa,
+                'campos' => $emp,
+                'certificado' => $certificado,
                 'soapDesativado' => $soapDesativado,
                 'estados' => Empresas::estados(),
                 'lista' => Empresas::all(),
@@ -62,6 +72,7 @@ class EmpresasController extends Controller
                 $file = $request->file('certificado');
                 $temp = file_get_contents($file);
             }
+
             if ($request->id == 0) {
                 $config = Empresas::create([
                     'razao_social' => strtoupper($this->sanitizeString($request->razao_social)),
@@ -91,7 +102,9 @@ class EmpresasController extends Controller
                     'msg' => 'Gravado com sucesso'
                 ]);
             } else {
-                $config = Empresas::find($request->id);
+                $empresa = new Empresas();
+
+                $config = $empresa->find($request->id);
 
                 $config->razao_social = strtoupper($this->sanitizeString($request->razao_social));
                 $config->nome_fantasia = strtoupper($this->sanitizeString($request->nome_fantasia));
@@ -109,13 +122,15 @@ class EmpresasController extends Controller
                 $config->pais = strtoupper($request->pais);
                 $config->fone = $request->fone;
                 $config->senha = $request->senha;
-                $config->certificado = $temp;
+                if ($temp != '') {
+                    $config->certificado = $temp;
+                }
+
                 $config->ambiente = $request->ambiente;
 
                 $config->cUF = Empresas::getCodUF($request->UF);
 
                 $config->ultimo_numero_mdfe = $request->ultimo_numero_mdfe;
-
 
                 $config->save();
                 session()->flash('msg', [
@@ -204,12 +219,12 @@ class EmpresasController extends Controller
             'cep' => 'required',
             'municipio' => 'required',
             'pais' => 'required',
-            'certificado' => 'required',
+            //'certificado' => 'required',
             'senha' => 'required',
             'codPais' => 'required|min:4',
             'codMun' => 'required|min:7',
             'UF' => 'required|max:2|min:2',
-
+            'ambiente' => 'required',
             'ultimo_numero_mdfe' => 'required',
 
 
@@ -243,7 +258,7 @@ class EmpresasController extends Controller
             'codPais.min' => 'Informe 1058 para Brasil.',
             'codMun.required' => 'O campo Código do Municipio é obrigatório.',
             'codMun.min' => 'Informe no minimo 7 caracteres, código IBGE.',
-
+            'ambiente.required' => 'Selecione um Ambiente.',
             'ultimo_numero_mdfe.required' => 'O último número do MDFE deve ser informado.',
 
 

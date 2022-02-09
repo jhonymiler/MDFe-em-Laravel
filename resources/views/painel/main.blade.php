@@ -261,10 +261,11 @@
         </div>
 
         <textarea id="campos" style="display: none;">
-            @if (isset($campos))
-                {{$campos}}
-                @elseif(old())
+            @if (old())
+
                 {{json_encode(old())}}
+                @elseif(isset($campos))
+                {{$campos}}
             @endif
 
             </textarea>
@@ -321,7 +322,11 @@
 
             function preencher(json) {
                 for (var key in json) {
-                    $("[name=" + key + "]").val(json[key]);
+                    if($("[name=" + key + "]").is(":radio")){
+                        $('[name="' + key + '"][value="'+json[key]+'"]').prop('checked',true);
+                    }else{
+                        $("[name=" + key + "]").val(json[key]);
+                    }
                 }
             };
 

@@ -43,22 +43,22 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="senha">Ambiente</label>
+                                    <label >Ambiente</label>
                                     <div class="row">
 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="ambiente" value="1">
-                                                  <label class="form-check-label"><b>Produção</b></label>
+                                                  <input id="producao" type="radio" name="ambiente" value="1">
+                                                  <label for="producao" class="form-check-label"><b>Produção</b></label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="ambiente" checked="checked" value="2">
-                                                  <label class="form-check-label"><b>Homologação</b></label>
+                                                  <input id="homolog" type="radio" name="ambiente" checked="checked" value="2">
+                                                  <label for="homolog" class="form-check-label"><b>Homologação</b></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -475,6 +475,12 @@
             @endforeach
         @endif
 
+        @if(isset($certificado))
+            let certificado = JSON.parse('{!! $certificado !!}');
+            $("#arquivo").attr('required',false)
+            preencheCertificado(certificado);
+        @endif
+
         $("#UF").change(function(){
             getUF($(this).val(), (res) => {
                 $('#cUF').val(res);
@@ -517,16 +523,8 @@
                     success : function(data) {
                         if(data.commonName){
 
-                            let emp = data.commonName.split(':');
-                            nome = emp[0];
-
-                            let fromdate = new Date(data.validFrom.date);
-                            let todate = new Date(data.validTo.date);
-                            $('#emp-nome').html(nome);
+                            preencheCertificado(data);
                             $('#nome_fantasia').val(nome);
-                            $('#emp-serial').html(data.serialNumber);
-                            $('#emp-data').html(fromdate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
-                            $('#emp-validade').html(todate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
 
                             getDadosCNPJ(emp[1])
                         }else{
@@ -545,8 +543,21 @@
             }
         });
 
+
+
     });
 
+        function preencheCertificado(data){
+            let emp = data.commonName.split(':');
+            nome = emp[0];
+
+            let fromdate = new Date(data.validFrom.date);
+            let todate = new Date(data.validTo.date);
+            $('#emp-nome').html(nome);
+            $('#emp-serial').html(data.serialNumber);
+            $('#emp-data').html(fromdate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
+            $('#emp-validade').html(todate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
+        }
 
 
 		function findNomeCidade(nomeCidade, call) {

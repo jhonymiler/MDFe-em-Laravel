@@ -25,8 +25,6 @@
                     </button>
                 </div>
             </div>
-
-
             <!-- /.card-header -->
             <!-- form start -->
             <form method="post" action="{{route('mdfe.nova')}}" id="formcadastro" class="needs-validation" enctype='multipart/form-data'>
