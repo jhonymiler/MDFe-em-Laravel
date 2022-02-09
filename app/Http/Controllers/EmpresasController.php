@@ -27,8 +27,6 @@ class EmpresasController extends Controller
         try {
 
             $page = [
-                'campos' => $emp,
-                'certificado' => $certificado,
                 'estados' => Empresas::estados(),
                 'lista' => Empresas::all(),
                 'link_menu' => 'empresas'
@@ -41,6 +39,9 @@ class EmpresasController extends Controller
                 $certificado = Certificate::readPfx($certificado, $emp['senha']);
                 $certificado = json_encode($certificado->publicKey, JSON_FORCE_OBJECT);
                 $emp = json_encode($emp, JSON_UNESCAPED_UNICODE);
+
+                $page['campos'] = $emp;
+                $page['certificado'] = $certificado;
             }
             if (!extension_loaded('soap')) {
                 session()->flash('msg', [
