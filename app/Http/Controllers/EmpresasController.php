@@ -25,9 +25,14 @@ class EmpresasController extends Controller
     {
 
         try {
-            $Empresa = '';
-            $certificado = '';
-            $emp = '';
+
+            $page = [
+                'campos' => $emp,
+                'certificado' => $certificado,
+                'estados' => Empresas::estados(),
+                'lista' => Empresas::all(),
+                'link_menu' => 'empresas'
+            ];
             if ($id) {
                 $Empresa = Empresas::find($id);
                 $emp = $Empresa->toArray();
@@ -37,17 +42,13 @@ class EmpresasController extends Controller
                 $certificado = json_encode($certificado->publicKey, JSON_FORCE_OBJECT);
                 $emp = json_encode($emp, JSON_UNESCAPED_UNICODE);
             }
-            $soapDesativado = !extension_loaded('soap');
-
-
-            return view('empresas', [
-                'campos' => $emp,
-                'certificado' => $certificado,
-                'soapDesativado' => $soapDesativado,
-                'estados' => Empresas::estados(),
-                'lista' => Empresas::all(),
-                'link_menu' => 'empresas'
-            ]);
+            if (!extension_loaded('soap')) {
+                session()->flash('msg', [
+                    'tipo' => 'erro',
+                    'msg' => 'O recurso SOAP não está habilitado neste servidor.'
+                ]);
+            }
+            return view('empresas', $page);
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

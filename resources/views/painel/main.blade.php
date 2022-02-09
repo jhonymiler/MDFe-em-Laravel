@@ -253,7 +253,7 @@
                 <strong>Copyright &copy; 2021 <a href="https://www.grupoarobr.com.br/" target="_blank">
                         GRUPO ARO
                     </a>.</strong>
-                Direitos reservados.
+                    Direitos reservados.
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 1.1.0
                 </div>
@@ -261,14 +261,12 @@
         </div>
 
         <textarea id="campos" style="display: none;">
-            @if (old())
-
+            @if(!empty(trim($campos)))
+                {!! $campos !!}
+            @elseif (old())
                 {{json_encode(old())}}
-                @elseif(isset($campos))
-                {{$campos}}
             @endif
-
-            </textarea>
+        </textarea>
         <script type="text/javascript">
             $(document).ready(function() {
                 @if (Session::has( 'msg' ))

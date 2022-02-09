@@ -475,7 +475,7 @@
             @endforeach
         @endif
 
-        @if(isset($certificado))
+        @if(!empty($certificado))
             let certificado = JSON.parse('{!! $certificado !!}');
             $("#arquivo").attr('required',false)
             preencheCertificado(certificado);
@@ -522,11 +522,12 @@
                     contentType: false,  // tell jQuery not to set contentType
                     success : function(data) {
                         if(data.commonName){
-
-                            preencheCertificado(data);
+                            let emp = data.commonName.split(':');
+                            nome = emp[0];
+                            $('#emp-nome').html(nome);
                             $('#nome_fantasia').val(nome);
-
-                            getDadosCNPJ(emp[1])
+                            preencheCertificado(data);
+                            getDadosCNPJ(emp[1]);
                         }else{
                             msg('erro','Senha inválida ou Arquivo incorreto!');
                             $("#senha").addClass('is-invalid');
@@ -548,12 +549,8 @@
     });
 
         function preencheCertificado(data){
-            let emp = data.commonName.split(':');
-            nome = emp[0];
-
             let fromdate = new Date(data.validFrom.date);
             let todate = new Date(data.validTo.date);
-            $('#emp-nome').html(nome);
             $('#emp-serial').html(data.serialNumber);
             $('#emp-data').html(fromdate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
             $('#emp-validade').html(todate.toLocaleDateString('pt-BR', {timeZone: 'UTC'}));
