@@ -4,7 +4,7 @@
     <a href="/" class="brand-link">
         <img src="/dist/img/aro-logo.png" alt="ARO HELPDESK" class="brand-image"
             style="opacity: .8">
-        <span class="brand-text font-weight-light"><b>ARO HELPDESK</b></span>
+        <span class="brand-text font-weight-light"><b>ACX MDF-e</b></span>
     </a>
 
     <!-- Sidebar -->
@@ -61,7 +61,7 @@
                     </ul>
                 </li> !-->
                 <li class="nav-item">
-                    <a href="/protocolos" data-link="protocolos" class="nav-link">
+                    <a href="/mdfe/novo" data-link="protocolos" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
                             MDF-e
@@ -69,12 +69,6 @@
                     </a>
                 </li>
 
-                <!--<li class="nav-item">
-                    <a href="/os" data-link="os" class="nav-link">
-                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>Ordens de Serviço</p>
-                    </a>
-                </li> !-->
 
 
                 <li class="nav-item">
@@ -85,14 +79,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/motoristas" data-link="usuarios" class="nav-link">
-                        <i class="nav-icon fas fa-id-card"></i>
-                        <p>
-                            Motoristas
-                        </p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="/usuarios" data-link="usuarios" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -101,14 +88,7 @@
                         </p>
                     </a>
                 </li>
-                <!--<li class="nav-item">
-                    <a href="/suporte" data-link="suporte" class="nav-link">
-                        <i class="nav-icon fas fa-question-circle"></i>
-                        <p>
-                            Suporte Online
-                        </p>
-                    </a>
-                </li>-->
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

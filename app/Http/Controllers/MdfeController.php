@@ -76,17 +76,17 @@ class MdfeController extends Controller
     {
         $lastMdfe = Mdfe::lastMdfe();
         $veiculos = Veiculo::all();
-        $config = Empresas::first();
+        $empresas = Empresas::all();
         $ufs = Mdfe::cUF();
         $tiposUnidadeTransporte = Mdfe::tiposUnidadeTransporte();
 
-        return view("mdfe/register")
-            ->with('mdfeJs', true)
+        return view("mdfe/cadastro")
             ->with('veiculos', $veiculos)
             ->with('ufs', $ufs)
+            ->with('empresas', $empresas)
             ->with('tiposUnidadeTransporte', $tiposUnidadeTransporte)
             ->with('lastMdfe', $lastMdfe)
-            ->with('title', "Nova MDF-e");
+            ->with('title', "Cadastro de MDF-e");
     }
 
     private function menos30Dias()

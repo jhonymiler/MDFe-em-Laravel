@@ -17,14 +17,7 @@
     <div class="col-md-12">
         <!-- general form elements -->
         <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Cadastro de Empresas</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" id="fecha">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
+
 
 
             <!-- /.card-header -->
@@ -180,15 +173,7 @@
                                         <select class="form-control" id="UF" required name="UF">
                                             <option value="null">--</option>
                                             @foreach($estados as $key => $u)
-                                            <option
-                                            @if(isset($config))
-                                            @if($key == $config->cUF)
-                                            selected
-                                            @endif
-
-
-                                            @endif
-                                            value="{{$u}}">{{$u}}</option>
+                                            <option value="{{$u}}">{{$u}}</option>
                                             @endforeach
                                         </select>
                                         <input name="cUF" type="hidden" class="form-control" id="cUF" value="" required>

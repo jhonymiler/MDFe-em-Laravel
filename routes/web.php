@@ -63,7 +63,7 @@ Route::group(['prefix' => 'cidades'], function () {
 
 Route::group(['prefix' => 'mdfe'], function () {
     Route::get('/', 'MdfeController@index');
-    Route::get('/nova', 'MdfeController@nova')->name('mdfe.nova');
+    Route::get('/novo', 'MdfeController@nova')->name('mdfe.novo');
     Route::get('/lista', 'MdfeController@lista');
     Route::get('/detalhar/{id}', 'MdfeController@detalhar');
     Route::get('/delete/{id}', 'MdfeController@delete');
