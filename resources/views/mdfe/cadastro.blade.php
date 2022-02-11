@@ -16,55 +16,47 @@
                 <input type="hidden" name="id" value="{{{ isset($Empresa->id) ? $Empresa->id : 0 }}}">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="empresa">Empresa</label>
+                                <select class="form-control" id="empresa" required name="empresa">
+                                    <option value="null">--</option>
+                                    @foreach($empresas as $emp)
+                                        <option value="{{$emp->id}}">{{$emp->razao_social}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="uf">UF</label>
-                                        <select class="form-control" id="uf_inicio" required name="uf_inicio">
+                                        <label for="tpEmit">Tipo do Emitente</label>
+                                        <select class="form-control" id="tpEmit" required name="tpEmit">
                                             <option value="null">--</option>
-                                            @foreach($empresas as $emp)
-                                                <option value="{{$emp->id}}">{{$emp->razao_social}}</option>
-                                            @endforeach
+                                            <option value="1">Prestador de serviço de transporte</option>
+                                            <option value="2">Transportador de Carga Própria</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label >Ambiente</label>
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                  <input id="producao" type="radio" name="ambiente" value="1">
-                                                  <label for="producao" class="form-check-label"><b>Produção</b></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                  <input id="homolog" type="radio" name="ambiente" checked="checked" value="2">
-                                                  <label for="homolog" class="form-check-label"><b>Homologação</b></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="tpTransp">Tipo Transp.</label>
+                                        <select class="form-control" id="tpTransp" required name="tpTransp">
+                                            <option value="null">--</option>
+                                            <option value="1">ETC</option>
+                                            <option value="2">TAC</option>
+                                            <option value="3">CTC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Lacre Rodov.</label>
+                                        <input type="text" name="lacre_rodo" class="form-control" id="lacre_rodo" placeholder="000000">
+                                      </div>
                                 </div>
                             </div>
-                            <label for="certificado">Certificado Digital (.pfx)</label>
-                            <div class="input-group">
-
-                                <input type="text" id="arquivo" class="form-control" readonly required>
-                                <label class="input-group-btn" style="margin-left:-5px; ">
-                                    <span class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                        <input name="certificado" id="certificado" type="file" style="display: none;"  required>
-                                    </span>
-                                </label>
-                            </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -90,13 +82,33 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Date:</label>
-                                        <div class="input-group date" id="data_inicio_viagem" data-target-input="nearest">
-                                            <input type="text" name="data_inicio_viagem" class="form-control datetimepicker-input" data-target="#data_inicio_viagem"/>
-                                            <div class="input-group-append" data-target="#data_inicio_viagem" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
-                                        </div>
+                                        <label>Data Viagem:</label>
+                                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" data-toggle="datetimepicker"/>
+                                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-4">
+                                    <div class="form-group">
+                                        <label for="cnpj_contratante">CNPJ Contratante</label>
+                                        <input type="text" name="cnpj_contratante" class="form-control" id="cnpj_contratante" data-inputmask='"mask": "99.999.999/9999-99"' data-mask >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <div class="form-group">
+                                        <label for="valor_carga">Qtd. Carga</label>
+                                        <input type="text" name="valor_carga" class="form-control" id="valor_carga" placeholder="1000 KG" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <div class="form-group">
+                                        <label for="valor_carga">Valor Carga</label>
+                                        <input type="text" name="valor_carga" class="form-control dinheiro" id="valor_carga"  >
                                     </div>
                                 </div>
                             </div>
@@ -115,13 +127,27 @@
         <!-- /.card -->
     </div>
 </div>
-<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+
 <script>
-    $(function () {
+    $(document).ready(function(){
+
         //Date picker
-        $('#data_inicio_viagem').datetimepicker({
+        jQuery('#reservationdate').datetimepicker({
             format: 'L'
         });
+
+        $('[data-mask]').inputmask();
+        $(".dinheiro").inputmask( 'currency',{"autoUnmask": true,
+            radixPoint:",",
+            groupSeparator: ".",
+            allowMinus: false,
+            //prefix: 'R$ ',
+            digits: 2,
+            digitsOptional: false,
+            rightAlign: true,
+            unmaskAsNumber: true
+        });
+
     });
 
 </script>

@@ -35,6 +35,7 @@
         <link rel="stylesheet"
             href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+        <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
         <!-- ./wrapper -->
         <link href="/dist/css/jquery.dm-uploader.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/dist/css/adminlte.css">
@@ -44,9 +45,8 @@
 
         <!-- REQUIRED SCRIPTS -->
         <!-- jQuery -->
-        <script src="/plugins/jquery/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <!-- Bootstrap -->
-        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- overlayScrollbars -->
         <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->
@@ -54,17 +54,17 @@
         <script src="/dist/js/jquery.validation.pt-br.js"></script>
         <script src="/plugins/inputmask/jquery.inputmask.min.js"></script>
 
+        <!-- daterangepicker -->
+        <script src="/plugins/moment/moment.min.js"></script>
+        <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
         <script src="/dist/js/twemoji.min.js" crossorigin="anonymous"></script>
         <script src="/dist/js/DisMojiPicker.js"></script>
 
         <script src="/dist/js/autobahn.js"></script>
-
-
-        <script src="/dist/js/adminlte.min.js"></script>
-
-
-
-
+        <script src="/dist/js/adminlte.js"></script>
 
     </head>
 
@@ -72,9 +72,6 @@
         <div class="wrapper">
 
             @php($imagem='/dist/img/avatar.png')
-
-
-
             <!-- Preloader -->
             <div class="preloader flex-column justify-content-center align-items-center">
                 <img class="animation__wobble" src="/dist/img/aro-logo.png" alt="ARO HELPDESK"
@@ -249,7 +246,8 @@
                 });
             };
 
-            if($("#campos").val() != ''){
+            var campos = $("#campos").val();
+            if(campos.trim() != ''){
                 var campos = JSON.parse($("#campos").val());
                 preencher(campos);
             }
