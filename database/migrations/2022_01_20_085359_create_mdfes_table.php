@@ -25,11 +25,11 @@ class CreateMdfesTable extends Migration
 
             $table->integer('veiculo_tracao_id')->unsigned();
             $table->foreign('veiculo_tracao_id')->references('id')
-            ->on('veiculos');
+                ->on('veiculos');
 
             $table->integer('veiculo_reboque_id')->unsigned();
             $table->foreign('veiculo_reboque_id')->references('id')
-            ->on('veiculos');
+                ->on('veiculos');
 
             $table->string('estado', 20);
             $table->integer('mdfe_numero');

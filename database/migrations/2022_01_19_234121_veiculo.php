@@ -22,7 +22,6 @@ class Veiculo extends Migration
             $table->string('modelo', 20);
             $table->string('rntrc', 12);
 
-
             $table->string('tipo', 2);
             $table->string('tipo_carroceria', 2);
             $table->string('tipo_rodado', 2);
@@ -35,7 +34,6 @@ class Veiculo extends Migration
             $table->string('proprietario_ie', 13);
             $table->string('proprietario_uf', 2);
             $table->integer('proprietario_tp');
-
 
             $table->timestamps();
         });
